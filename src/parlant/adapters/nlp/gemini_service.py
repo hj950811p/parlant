@@ -43,6 +43,7 @@ from parlant.core.nlp.generation import (
 )
 from parlant.core.nlp.generation_info import GenerationInfo, UsageInfo
 from parlant.core.loggers import Logger
+from parlant.core.nlp.emotion import EmotionAnalyzer
 
 RATE_LIMIT_ERROR_MESSAGE = (
     "Google API rate limit exceeded.\n\n"
@@ -588,3 +589,9 @@ def convert_model_to_gemini_compatible_schema(model_cls: type[DefaultBaseModel])
     setattr(model_cls, "_conversion_cache", converted_model)
 
     return converted_model
+
+    @override
+    async def get_emotion_analyzer(self) -> EmotionAnalyzer:
+        from parlant.adapters.nlp.emotion_analyzer import CerebrasEmotionAnalyzer
+
+        return CerebrasEmotionAnalyzer(self._logger, self._meter)

@@ -35,6 +35,7 @@ from parlant.adapters.nlp.common import normalize_json_output, record_llm_metric
 from parlant.core.engines.alpha.prompt_builder import PromptBuilder
 from parlant.core.loggers import Logger
 from parlant.core.meter import Meter
+from parlant.core.nlp.emotion import EmotionAnalyzer
 from parlant.core.nlp.policies import policy, retry
 from parlant.core.nlp.tokenization import EstimatingTokenizer
 from parlant.core.nlp.service import NLPService
@@ -629,3 +630,9 @@ https://docs.microsoft.com/en-us/python/api/overview/azure/identity-readme
 
     async def get_moderation_service(self) -> ModerationService:
         return NoModeration()
+
+    @override
+    async def get_emotion_analyzer(self) -> EmotionAnalyzer:
+        from parlant.adapters.nlp.emotion_analyzer import CerebrasEmotionAnalyzer
+
+        return CerebrasEmotionAnalyzer(self._logger, self._meter)

@@ -45,6 +45,7 @@ from parlant.core.engines.alpha.prompt_builder import PromptBuilder
 from parlant.core.engines.alpha.tool_calling.single_tool_batch import SingleToolBatchSchema
 from parlant.core.loggers import Logger
 from parlant.core.meter import Meter
+from parlant.core.nlp.emotion import EmotionAnalyzer
 from parlant.core.nlp.policies import policy, retry
 from parlant.core.nlp.tokenization import EstimatingTokenizer
 from parlant.core.nlp.service import NLPService
@@ -500,3 +501,9 @@ Please set OPENAI_API_KEY in your environment before running Parlant.
     @override
     async def get_moderation_service(self) -> ModerationService:
         return OmniModeration(self._logger, self._meter)
+
+    @override
+    async def get_emotion_analyzer(self) -> EmotionAnalyzer:
+        from parlant.adapters.nlp.emotion_analyzer import CerebrasEmotionAnalyzer
+
+        return CerebrasEmotionAnalyzer(self._logger, self._meter)

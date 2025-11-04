@@ -51,6 +51,7 @@ from parlant.core.nlp.moderation import (
     ModerationService,
     ModerationTag,
 )
+from parlant.core.nlp.emotion import EmotionAnalyzer
 
 try:
     from mistralai import Mistral
@@ -393,3 +394,9 @@ Please set MISTRAL_API_KEY in your environment before running Parlant.
     @override
     async def get_moderation_service(self) -> ModerationService:
         return MistralModerationService(self._logger, self._meter)
+
+    @override
+    async def get_emotion_analyzer(self) -> EmotionAnalyzer:
+        from parlant.adapters.nlp.emotion_analyzer import CerebrasEmotionAnalyzer
+
+        return CerebrasEmotionAnalyzer(self._logger, self._meter)

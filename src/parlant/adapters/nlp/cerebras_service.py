@@ -32,6 +32,7 @@ from parlant.adapters.nlp.hugging_face import JinaAIEmbedder
 from parlant.core.engines.alpha.prompt_builder import PromptBuilder
 from parlant.core.meter import Meter
 from parlant.core.nlp.embedding import Embedder
+from parlant.core.nlp.emotion import EmotionAnalyzer
 from parlant.core.nlp.generation import (
     T,
     BaseSchematicGenerator,
@@ -254,3 +255,9 @@ Please set CEREBRAS_API_KEY in your environment before running Parlant.
     @override
     async def get_moderation_service(self) -> ModerationService:
         return NoModeration()
+
+    @override
+    async def get_emotion_analyzer(self) -> EmotionAnalyzer:
+        from parlant.adapters.nlp.emotion_analyzer import CerebrasEmotionAnalyzer
+
+        return CerebrasEmotionAnalyzer(self._logger, self._meter)
