@@ -243,6 +243,35 @@ _Financial institutions • Healthcare providers • Legal firms • E-commerce 
 </tr>
 </table>
 
+## 🧪 Development & Testing
+
+Parlant has comprehensive test coverage across all components:
+
+- **Unit Tests**: Individual component testing with mocks
+- **Integration Tests**: Component interaction verification
+- **End-to-End Tests**: Full user workflow validation
+- **Type Safety**: Full MyPy strict mode compliance
+- **Code Quality**: Ruff formatting and linting
+
+### Run Tests Locally
+
+```bash
+# Install development dependencies
+poetry install
+
+# Run all tests
+poetry run pytest tests/
+
+# Run specific test category
+poetry run pytest tests/adapters/nlp/
+
+# Check code quality
+poetry run mypy
+poetry run ruff check
+```
+
+For detailed testing information, see the [Testing & QA Guide](docs/TESTING_AND_QA.md).
+
 ## 🤝 Community & Support
 
 - 💬 **[Discord Community](https://discord.gg/duxWqxKk6J)** - Get help from the team and community
