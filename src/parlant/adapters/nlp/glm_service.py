@@ -50,6 +50,7 @@ from parlant.core.nlp.moderation import (
     ModerationService,
     NoModeration,
 )
+from parlant.core.nlp.emotion import EmotionAnalyzer
 
 RATE_LIMIT_ERROR_MESSAGE = """\
 GLM API rate limit exceeded. Possible reasons:
@@ -321,3 +322,9 @@ Please set GLM_API_KEY in your environment before running Parlant.
     @override
     async def get_moderation_service(self) -> ModerationService:
         return NoModeration()
+
+    @override
+    async def get_emotion_analyzer(self) -> EmotionAnalyzer:
+        from parlant.adapters.nlp.emotion_analyzer import CerebrasEmotionAnalyzer
+
+        return CerebrasEmotionAnalyzer(self._logger, self._meter)

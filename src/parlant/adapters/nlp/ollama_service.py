@@ -40,6 +40,7 @@ from parlant.core.nlp.generation import (
 )
 from parlant.core.nlp.generation_info import GenerationInfo, UsageInfo
 from parlant.core.loggers import Logger
+from parlant.core.nlp.emotion import EmotionAnalyzer
 
 
 class OllamaError(Exception):
@@ -731,3 +732,9 @@ MODEL_RECOMMENDATIONS = {
     "llama3.1:70b": "@warn: Requires significant GPU memory (40GB+)",
     "llama3.1:405b": "@warn: Requires massive GPU resources (200GB+), cloud-only",
 }
+
+    @override
+    async def get_emotion_analyzer(self) -> EmotionAnalyzer:
+        from parlant.adapters.nlp.emotion_analyzer import CerebrasEmotionAnalyzer
+
+        return CerebrasEmotionAnalyzer(self._logger, self._meter)

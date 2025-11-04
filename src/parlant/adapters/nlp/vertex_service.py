@@ -60,6 +60,7 @@ from parlant.core.nlp.generation import (
 )
 from parlant.core.nlp.generation_info import GenerationInfo, UsageInfo
 from parlant.core.loggers import Logger
+from parlant.core.nlp.emotion import EmotionAnalyzer
 
 
 class ModelProvider(Enum):
@@ -851,3 +852,9 @@ class VertexAIService(NLPService):
     async def get_moderation_service(self) -> ModerationService:  # @Todo - add moderation service
         """Get a moderation service."""
         return NoModeration()
+
+    @override
+    async def get_emotion_analyzer(self) -> EmotionAnalyzer:
+        from parlant.adapters.nlp.emotion_analyzer import CerebrasEmotionAnalyzer
+
+        return CerebrasEmotionAnalyzer(self._logger, self._meter)

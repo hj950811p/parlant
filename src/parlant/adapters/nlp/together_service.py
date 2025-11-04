@@ -44,6 +44,7 @@ from parlant.core.nlp.moderation import ModerationService, NoModeration
 from parlant.core.nlp.policies import policy, retry
 from parlant.core.nlp.service import NLPService
 from parlant.core.nlp.tokenization import EstimatingTokenizer
+from parlant.core.nlp.emotion import EmotionAnalyzer
 
 RATE_LIMIT_ERROR_MESSAGE = (
     "Together API rate limit exceeded. Possible reasons:\n"
@@ -437,3 +438,9 @@ Available models can be found at: https://docs.together.ai/docs/inference-models
     @override
     async def get_moderation_service(self) -> ModerationService:
         return NoModeration()
+
+    @override
+    async def get_emotion_analyzer(self) -> EmotionAnalyzer:
+        from parlant.adapters.nlp.emotion_analyzer import CerebrasEmotionAnalyzer
+
+        return CerebrasEmotionAnalyzer(self._logger, self._meter)

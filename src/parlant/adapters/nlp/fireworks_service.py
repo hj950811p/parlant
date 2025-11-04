@@ -38,6 +38,7 @@ from parlant.core.nlp.moderation import ModerationService, NoModeration
 from parlant.core.nlp.policies import policy, retry
 from parlant.core.nlp.service import NLPService
 from parlant.core.nlp.tokenization import EstimatingTokenizer
+from parlant.core.nlp.emotion import EmotionAnalyzer
 
 
 RATE_LIMIT_ERROR_MESSAGE = (
@@ -413,3 +414,9 @@ MODEL_RECOMMENDATIONS = {
     "accounts/fireworks/models/gemma2-9b-it": "Good balance of speed and accuracy",
     "accounts/fireworks/models/mythomax-l2-13b": "Creative writing and roleplay scenarios",
 }
+
+    @override
+    async def get_emotion_analyzer(self) -> EmotionAnalyzer:
+        from parlant.adapters.nlp.emotion_analyzer import CerebrasEmotionAnalyzer
+
+        return CerebrasEmotionAnalyzer(self._logger, self._meter)

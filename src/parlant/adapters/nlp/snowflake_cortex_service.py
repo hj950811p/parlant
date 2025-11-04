@@ -42,6 +42,7 @@ from parlant.core.nlp.generation import (
 )
 from parlant.core.nlp.generation_info import GenerationInfo, UsageInfo
 from parlant.core.nlp.moderation import ModerationService, NoModeration
+from parlant.core.nlp.emotion import EmotionAnalyzer
 
 HTTPX_TIMEOUT = httpx.Timeout(timeout=60.0, connect=5.0, read=60.0, write=60.0)
 
@@ -382,3 +383,9 @@ class SnowflakeCortexService(NLPService):
     @override
     async def get_moderation_service(self) -> ModerationService:
         return NoModeration()
+
+    @override
+    async def get_emotion_analyzer(self) -> EmotionAnalyzer:
+        from parlant.adapters.nlp.emotion_analyzer import CerebrasEmotionAnalyzer
+
+        return CerebrasEmotionAnalyzer(self._logger, self._meter)
