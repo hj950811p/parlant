@@ -1,0 +1,15 @@
+1
+00:00:00,000 --> 00:00:05,000
+Welcome to the VFX pipeline.
+
+2
+00:00:05,500 --> 00:00:10,000
+This system generates video blueprints.
+
+3
+00:00:10,500 --> 00:00:15,000
+Using AI-powered scene descriptions.
+
+4
+00:00:15,500 --> 00:00:20,000
+And camera angle recommendations.

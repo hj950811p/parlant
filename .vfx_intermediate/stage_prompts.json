@@ -1,0 +1,48 @@
+{
+  "scenes": [
+    {
+      "scene_id": 1,
+      "subtitle_indices": [
+        1
+      ],
+      "visual_prompt": "A cinematic scene showing: Welcome to the VFX pipeline.",
+      "emotion": "neutral",
+      "start_time": 0.0,
+      "end_time": 5.0,
+      "animation": null
+    },
+    {
+      "scene_id": 2,
+      "subtitle_indices": [
+        2
+      ],
+      "visual_prompt": "A cinematic scene showing: This system generates video blueprints.",
+      "emotion": "neutral",
+      "start_time": 5.5,
+      "end_time": 10.0,
+      "animation": null
+    },
+    {
+      "scene_id": 3,
+      "subtitle_indices": [
+        3
+      ],
+      "visual_prompt": "A cinematic scene showing: Using AI-powered scene descriptions.",
+      "emotion": "neutral",
+      "start_time": 10.5,
+      "end_time": 15.0,
+      "animation": null
+    },
+    {
+      "scene_id": 4,
+      "subtitle_indices": [
+        4
+      ],
+      "visual_prompt": "A cinematic scene showing: And camera angle recommendations.",
+      "emotion": "neutral",
+      "start_time": 15.5,
+      "end_time": 20.0,
+      "animation": null
+    }
+  ]
+}
