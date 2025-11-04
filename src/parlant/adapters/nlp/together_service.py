@@ -332,13 +332,22 @@ class CustomTogetherAIEmbedder(TogetherAIEmbedder):
 
 
 class TogetherService(NLPService):
+    """
+    Together AI NLP service for schematic generation and embeddings.
+    
+    Available models:
+    - qwen-3-235b-a22b-thinking-2507: Highest quality, recommended for complex scenarios (default)
+    - meta-llama/Llama-3.3-70B-Instruct-Turbo: Alternative fallback model
+    - meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo: High quality alternative
+    """
+
     @staticmethod
     def verify_environment() -> str | None:
         """Returns an error message if the environment is not set up correctly."""
 
         required_vars = {
             "TOGETHER_API_KEY": "your-together-api-key",
-            "TOGETHER_MODEL": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+            "TOGETHER_MODEL": "qwen-3-235b-a22b-thinking-2507",
             "TOGETHER_EMBEDDING_MODEL": "togethercomputer/m2-bert-80M-32k-retrieval",
         }
 
@@ -366,7 +375,7 @@ Available models can be found at: https://docs.together.ai/docs/inference-models
         meter: Meter,
     ) -> None:
         self.model_name = os.environ.get(
-            "TOGETHER_MODEL", "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+            "TOGETHER_MODEL", "qwen-3-235b-a22b-thinking-2507"
         )
         self.embedding_model = os.environ.get(
             "TOGETHER_EMBEDDING_MODEL", "togethercomputer/m2-bert-80M-32k-retrieval"
