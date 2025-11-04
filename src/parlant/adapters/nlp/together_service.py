@@ -336,10 +336,14 @@ class TogetherService(NLPService):
     """
     Together AI NLP service for schematic generation and embeddings.
     
-    Available models:
-    - qwen-3-235b-a22b-thinking-2507: Highest quality, recommended for complex scenarios (default)
-    - meta-llama/Llama-3.3-70B-Instruct-Turbo: Alternative fallback model
-    - meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo: High quality alternative
+    Production-grade models (recommended):
+    - gpt-oss-120b: Fastest production model (3000 tokens/s), default
+    - qwen-3-32b: Chinese-optimized (2600 tokens/s)
+    - llama-3.3-70b: Balanced option (2100 tokens/s)
+    
+    ⚠️ Deprecated models (avoid):
+    - qwen-3-235b-a22b-thinking-2507: Deprecated 2025-11-14
+    - qwen-3-coder-480b: Deprecated 2025-11-05
     """
 
     @staticmethod
@@ -348,7 +352,7 @@ class TogetherService(NLPService):
 
         required_vars = {
             "TOGETHER_API_KEY": "your-together-api-key",
-            "TOGETHER_MODEL": "qwen-3-235b-a22b-thinking-2507",
+            "TOGETHER_MODEL": "gpt-oss-120b",
             "TOGETHER_EMBEDDING_MODEL": "togethercomputer/m2-bert-80M-32k-retrieval",
         }
 
@@ -376,7 +380,10 @@ Available models can be found at: https://docs.together.ai/docs/inference-models
         meter: Meter,
     ) -> None:
         self.model_name = os.environ.get(
-            "TOGETHER_MODEL", "qwen-3-235b-a22b-thinking-2507"
+            "TOGETHER_MODEL", "gpt-oss-120b"
+        )
+        self.fallback_model = os.environ.get(
+            "TOGETHER_FALLBACK_MODEL", "qwen-3-32b"
         )
         self.embedding_model = os.environ.get(
             "TOGETHER_EMBEDDING_MODEL", "togethercomputer/m2-bert-80M-32k-retrieval"
@@ -385,6 +392,7 @@ Available models can be found at: https://docs.together.ai/docs/inference-models
         self._meter = meter
 
         self._logger.info(f"Initialized TogetherService with model: {self.model_name}")
+        self._logger.debug(f"Fallback model: {self.fallback_model}")
 
     def _get_specialized_generator_class(
         self,
