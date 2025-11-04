@@ -46,6 +46,9 @@ from parlant.core.nlp.generation import SchematicGenerator
 from parlant.core.nlp.generation_info import GenerationInfo
 from parlant.core.engines.alpha.guideline_matching.guideline_match import GuidelineMatch
 from parlant.core.engines.alpha.prompt_builder import PromptBuilder
+from parlant.core.engines.alpha.prompt_templates import (
+    extract_system_rules_for_prompt_builder,
+)
 from parlant.core.glossary import Term
 from parlant.core.emissions import EmittedEvent, EventEmitter
 from parlant.core.sessions import Event, EventKind, EventSource
@@ -326,15 +329,7 @@ class MessageGenerator(MessageEventComposer):
 
         builder.add_section(
             name="message-generator-general-instructions",
-            template="""
-GENERAL INSTRUCTIONS
------------------
-You are an AI agent who is part of a system that interacts with a user. The current state of this interaction will be provided to you later in this message.
-Your role is to generate a reply message to the current (latest) state of the interaction, based on provided guidelines and background information.
-
-Later in this prompt, you'll be provided with behavioral guidelines and other contextual information you must take into account when generating your response.
-
-""",
+            template=extract_system_rules_for_prompt_builder(),
             props={},
         )
 
